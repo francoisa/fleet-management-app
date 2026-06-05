@@ -1,6 +1,0 @@
-# Parts Request Items fixture
-one:
-  parts_request: one
-  part: one
-  quantity_needed: 2
-  status: pending

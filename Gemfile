@@ -76,10 +76,12 @@ gem "whenever", require: false
 gem 'letter_opener'
 
 # Testing gems
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+end
+
 group :test do
-  gem "minitest"
-  gem "minitest-rails"
-  gem "minitest-reporters"
   gem "rails-controller-testing"
   gem "capybara"
   gem "selenium-webdriver"
