@@ -1,0 +1,353 @@
+<svg viewBox="0 0 2400 1800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .model-box { fill: #e8f4f8; stroke: #2c3e50; stroke-width: 2; }
+      .model-title { font-weight: bold; font-size: 14px; fill: #2c3e50; }
+      .model-text { font-size: 11px; fill: #34495e; }
+      .relationship-line { stroke: #7f8c8d; stroke-width: 2; fill: none; }
+      .relationship-label { font-size: 10px; fill: #2c3e50; font-weight: 500; }
+      .domain-label { font-size: 16px; font-weight: bold; fill: #34495e; opacity: 0.6; }
+      .arrow { fill: #7f8c8d; }
+      .one-to-many { stroke-dasharray: 5,5; }
+      .many-to-many { stroke-dasharray: 10,5; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" class="arrow" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="2400" height="1800" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="1200" y="30" font-size="28" font-weight="bold" text-anchor="middle" fill="#2c3e50">
+    Fleet Management App - Model Relationships
+  </text>
+
+  <!-- ORGANIZATION & ACCESS CONTROL Domain -->
+  <text x="50" y="80" class="domain-label">ORGANIZATION &amp; ACCESS CONTROL</text>
+
+  <!-- Agency -->
+  <rect x="50" y="100" width="140" height="100" class="model-box" rx="4"/>
+  <text x="60" y="125" class="model-title">Agency</text>
+  <text x="60" y="145" class="model-text">• has_many users</text>
+  <text x="60" y="160" class="model-text">• has_many vehicles</text>
+  <text x="60" y="175" class="model-text">• has_many drivers</text>
+  <text x="60" y="190" class="model-text">• has_many accounts</text>
+
+  <!-- User -->
+  <rect x="220" y="100" width="140" height="100" class="model-box" rx="4"/>
+  <text x="230" y="125" class="model-title">User</text>
+  <text x="230" y="145" class="model-text">• belongs_to agency</text>
+  <text x="230" y="160" class="model-text">• has_many sessions</text>
+  <text x="230" y="175" class="model-text">• has_many quotations</text>
+  <text x="230" y="190" class="model-text">• has_many audit_logs</text>
+
+  <!-- Account -->
+  <rect x="390" y="100" width="140" height="100" class="model-box" rx="4"/>
+  <text x="400" y="125" class="model-title">Account</text>
+  <text x="400" y="145" class="model-text">• belongs_to agency</text>
+  <text x="400" y="160" class="model-text">• has_many transactions</text>
+  <text x="400" y="175" class="model-text">• has_many payables</text>
+  <text x="400" y="190" class="model-text">• account_type enum</text>
+
+  <!-- Relationships: Agency-User -->
+  <line x1="190" y1="140" x2="220" y2="140" class="relationship-line" marker-end="url(#arrowhead)"/>
+  <text x="202" y="135" class="relationship-label">has_many</text>
+
+  <!-- Relationships: Agency-Account -->
+  <line x1="190" y1="155" x2="390" y2="155" class="relationship-line" marker-end="url(#arrowhead)"/>
+  <text x="285" y="150" class="relationship-label">has_many</text>
+
+  <!-- FLEET MANAGEMENT Domain -->
+  <text x="50" y="280" class="domain-label">FLEET MANAGEMENT</text>
+
+  <!-- Vehicle -->
+  <rect x="50" y="300" width="150" height="130" class="model-box" rx="4"/>
+  <text x="60" y="325" class="model-title">Vehicle</text>
+  <text x="60" y="345" class="model-text">• polymorphic owner</text>
+  <text x="60" y="360" class="model-text">• belongs_to driver</text>
+  <text x="60" y="375" class="model-text">• has_many inspections</text>
+  <text x="60" y="390" class="model-text">• has_many maintenances</text>
+  <text x="60" y="405" class="model-text">• has_many trips</text>
+  <text x="60" y="420" class="model-text">• has_many alerts</text>
+
+  <!-- Driver -->
+  <rect x="250" y="300" width="150" height="130" class="model-box" rx="4"/>
+  <text x="260" y="325" class="model-title">Driver</text>
+  <text x="260" y="345" class="model-text">• belongs_to agency</text>
+  <text x="260" y="360" class="model-text">• has_many vehicles</text>
+  <text x="260" y="375" class="model-text">• has_many trips</text>
+  <text x="260" y="390" class="model-text">• has_many alerts</text>
+  <text x="260" y="405" class="model-text">• has_many damage_reports</text>
+  <text x="260" y="420" class="model-text">• license_number</text>
+
+  <!-- Trip -->
+  <rect x="450" y="300" width="150" height="130" class="model-box" rx="4"/>
+  <text x="460" y="325" class="model-title">Trip</text>
+  <text x="460" y="345" class="model-text">• belongs_to vehicle</text>
+  <text x="460" y="360" class="model-text">• belongs_to driver</text>
+  <text x="460" y="375" class="model-text">• has_many alerts</text>
+  <text x="460" y="390" class="model-text">• has_many damage_reports</text>
+  <text x="460" y="405" class="model-text">• status enum</text>
+  <text x="460" y="420" class="model-text">• route tracking</text>
+
+  <!-- Alert -->
+  <rect x="650" y="300" width="150" height="130" class="model-box" rx="4"/>
+  <text x="660" y="325" class="model-title">Alert</text>
+  <text x="660" y="345" class="model-text">• belongs_to agency</text>
+  <text x="660" y="360" class="model-text">• belongs_to vehicle</text>
+  <text x="660" y="375" class="model-text">• belongs_to trip (optional)</text>
+  <text x="660" y="390" class="model-text">• alert_type enum</text>
+  <text x="660" y="405" class="model-text">• severity enum</text>
+  <text x="660" y="420" class="model-text">• status tracking</text>
+
+  <!-- Relationships in Fleet Management -->
+  <line x1="200" y1="360" x2="250" y2="360" class="relationship-line" marker-end="url(#arrowhead)"/>
+  <text x="215" y="355" class="relationship-label">has_many</text>
+
+  <line x1="200" y1="385" x2="450" y2="360" class="relationship-line" marker-end="url(#arrowhead)"/>
+  <text x="320" y="360" class="relationship-label">has_many</text>
+
+  <line x1="400" y1="350" x2="450" y2="350" class="relationship-line" marker-end="url(#arrowhead)"/>
+  <text x="415" y="345" class="relationship-label">has_many</text>
+
+  <line x1="200" y1="350" x2="650" y2="350" class="relationship-line" marker-end="url(#arrowhead)"/>
+  <text x="420" y="345" class="relationship-label">has_many</text>
+
+  <line x1="600" y1="360" x2="650" y2="360" class="relationship-line" marker-end="url(#arrowhead)"/>
+  <text x="615" y="355" class="relationship-label">has_many</text>
+
+  <!-- MAINTENANCE & REPAIRS Domain -->
+  <text x="50" y="540" class="domain-label">MAINTENANCE &amp; REPAIRS</text>
+
+  <!-- Inspection -->
+  <rect x="50" y="560" width="150" height="130" class="model-box" rx="4"/>
+  <text x="60" y="585" class="model-title">Inspection</text>
+  <text x="60" y="605" class="model-text">• belongs_to vehicle</text>
+  <text x="60" y="620" class="model-text">• has_many inspection_items</text>
+  <text x="60" y="635" class="model-text">• has_many findings</text>
+  <text x="60" y="650" class="model-text">• inspector_id</text>
+  <text x="60" y="665" class="model-text">• inspection_date</text>
+  <text x="60" y="680" class="model-text">• status enum</text>
+
+  <!-- Maintenance -->
+  <rect x="250" y="560" width="150" height="130" class="model-box" rx="4"/>
+  <text x="260" y="585" class="model-title">Maintenance</text>
+  <text x="260" y="605" class="model-text">• belongs_to vehicle</text>
+  <text x="260" y="620" class="model-text">• has_many parts</text>
+  <text x="260" y="635" class="model-text">• has_many job_tasks</text>
+  <text x="260" y="650" class="model-text">• has_many labor_logs</text>
+  <text x="260" y="665" class="model-text">• cost tracking</text>
+  <text x="260" y="680" class="model-text">• status enum</text>
+
+  <!-- MaintenanceRequest -->
+  <rect x="450" y="560" width="150" height="130" class="model-box" rx="4"/>
+  <text x="460" y="585" class="model-title">MaintenanceRequest</text>
+  <text x="460" y="605" class="model-text">• belongs_to vehicle</text>
+  <text x="460" y="620" class="model-text">• belongs_to requesting_agency</text>
+  <text x="460" y="635" class="model-text">• belongs_to processing_agency</text>
+  <text x="460" y="650" class="model-text">• has_many quotations</text>
+  <text x="460" y="665" class="model-text">• status enum</text>
+  <text x="460" y="680" class="model-text">• priority level</text>
+
+  <!-- JobTask -->
+  <rect x="650" y="560" width="150" height="130" class="model-box" rx="4"/>
+  <text x="660" y="585" class="model-title">JobTask</text>
+  <text x="660" y="605" class="model-text">• belongs_to maintenance</text>
+  <text x="660" y="620" class="model-text">• belongs_to job_template</text>
+  <text x="660" y="635" class="model-text">• has_many labor_logs</text>
+  <text x="660" y="650" class="model-text">• has_many_attachments</text>
+  <text x="660" y="665" class="model-text">• status enum</text>
+  <text x="660" y="680" class="model-text">• assigned_to</text>
+
+  <!-- Relationships in Maintenance -->
+  <line x1="200" y1="610" x2="250" y2="610" class="relationship-line" marker-end="url(#arrowhead)"/>
+  <text x="215" y="605" class="relationship-label">has_many</text>
+
+  <line x1="200" y1="625" x2="450" y2="600" class="relationship-line" marker-end="url(#arrowhead)"/>
+  <text x="310" y="600" class="relationship-label">has_many</text>
+
+  <line x1="400" y1="620" x2="450" y2="610" class="relationship-line" marker-end="url(#arrowhead)"/>
+  <text x="415" y="610" class="relationship-label">has_many</text>
+
+  <line x1="400" y1="630" x2="650" y2="620" class="relationship-line" marker-end="url(#arrowhead)"/>
+  <text x="515" y="620" class="relationship-label">has_many</text>
+
+  <!-- PROCUREMENT & FINANCE Domain -->
+  <text x="900" y="80" class="domain-label">PROCUREMENT &amp; FINANCE</text>
+
+  <!-- PurchaseOrder -->
+  <rect x="900" y="100" width="150" height="130" class="model-box" rx="4"/>
+  <text x="910" y="125" class="model-title">PurchaseOrder</text>
+  <text x="910" y="145" class="model-text">• belongs_to supplier</text>
+  <text x="910" y="160" class="model-text">• has_many items</text>
+  <text x="910" y="175" class="model-text">• has_many invoices</text>
+  <text x="910" y="190" class="model-text">• total_amount</text>
+  <text x="910" y="205" class="model-text">• status enum</text>
+  <text x="910" y="220" class="model-text">• approval chain</text>
+
+  <!-- Quotation -->
+  <rect x="1100" y="100" width="150" height="130" class="model-box" rx="4"/>
+  <text x="1110" y="125" class="model-title">Quotation</text>
+  <text x="1110" y="145" class="model-text">• belongs_to supplier</text>
+  <text x="1110" y="160" class="model-text">• belongs_to rfq</text>
+  <text x="1110" y="175" class="model-text">• has_many items</text>
+  <text x="1110" y="190" class="model-text">• total_price</text>
+  <text x="1110" y="205" class="model-text">• status enum</text>
+  <text x="1110" y="220" class="model-text">• created_by user</text>
+
+  <!-- RFQ -->
+  <rect x="1300" y="100" width="150" height="130" class="model-box" rx="4"/>
+  <text x="1310" y="125" class="model-title">RFQ</text>
+  <text x="1310" y="145" class="model-text">• belongs_to requesting_agency</text>
+  <text x="1310" y="160" class="model-text">• belongs_to processing_agency</text>
+  <text x="1310" y="175" class="model-text">• has_many quotations</text>
+  <text x="1310" y="190" class="model-text">• has_many line_items</text>
+  <text x="1310" y="205" class="model-text">• status enum</text>
+  <text x="1310" y="220" class="model-text">• type: maintenance/parts</text>
+
+  <!-- Supplier -->
+  <rect x="1500" y="100" width="150" height="130" class="model-box" rx="4"/>
+  <text x="1510" y="125" class="model-title">Supplier</text>
+  <text x="1510" y="145" class="model-text">• has_many quotations</text>
+  <text x="1510" y="160" class="model-text">• has_many purchase_orders</text>
+  <text x="1510" y="175" class="model-text">• has_many parts</text>
+  <text x="1510" y="190" class="model-text">• name, contact info</text>
+  <text x="1510" y="205" class="model-text">• rating, status</text>
+  <text x="1510" y="220" class="model-text">• payment_terms</text>
+
+  <!-- Relationships in Procurement -->
+  <line x1="1050" y1="140" x2="1100" y2="140" class="relationship-line" marker-end="url(#arrowhead)"/>
+  <text x="1062" y="135" class="relationship-label">has_many</text>
+
+  <line x1="1250" y1="140" x2="1300" y2="140" class="relationship-line" marker-end="url(#arrowhead)"/>
+  <text x="1262" y="135" class="relationship-label">belongs_to</text>
+
+  <line x1="1450" y1="140" x2="1500" y2="140" class="relationship-line" marker-end="url(#arrowhead)"/>
+  <text x="1462" y="135" class="relationship-label">has_many</text>
+
+  <!-- PARTS & INVENTORY Domain -->
+  <text x="900" y="340" class="domain-label">PARTS &amp; INVENTORY</text>
+
+  <!-- Part -->
+  <rect x="900" y="360" width="150" height="130" class="model-box" rx="4"/>
+  <text x="910" y="385" class="model-title">Part</text>
+  <text x="910" y="405" class="model-text">• belongs_to supplier</text>
+  <text x="910" y="420" class="model-text">• has_many maintenances</text>
+  <text x="910" y="435" class="model-text">• has_many purchase_orders</text>
+  <text x="910" y="450" class="model-text">• part_number</text>
+  <text x="910" y="465" class="model-text">• stock_quantity</text>
+  <text x="910" y="480" class="model-text">• unit_price</text>
+
+  <!-- JobTemplate -->
+  <rect x="1100" y="360" width="150" height="130" class="model-box" rx="4"/>
+  <text x="1110" y="385" class="model-title">JobTemplate</text>
+  <text x="1110" y="405" class="model-text">• belongs_to agency</text>
+  <text x="1110" y="420" class="model-text">• has_many job_tasks</text>
+  <text x="1110" y="435" class="model-text">• has_many parts</text>
+  <text x="1110" y="450" class="model-text">• template_name</text>
+  <text x="1110" y="465" class="model-text">• description</text>
+  <text x="1110" y="480" class="model-text">• estimated_cost</text>
+
+  <!-- Invoice -->
+  <rect x="1300" y="360" width="150" height="130" class="model-box" rx="4"/>
+  <text x="1310" y="385" class="model-title">Invoice</text>
+  <text x="1310" y="405" class="model-text">• belongs_to purchase_order</text>
+  <text x="1310" y="420" class="model-text">• has_many line_items</text>
+  <text x="1310" y="435" class="model-text">• has_many payments</text>
+  <text x="1310" y="450" class="model-text">• invoice_number</text>
+  <text x="1310" y="465" class="model-text">• invoice_date</text>
+  <text x="1310" y="480" class="model-text">• status enum</text>
+
+  <!-- Payable -->
+  <rect x="1500" y="360" width="150" height="130" class="model-box" rx="4"/>
+  <text x="1510" y="385" class="model-title">Payable</text>
+  <text x="1510" y="405" class="model-text">• belongs_to account</text>
+  <text x="1510" y="420" class="model-text">• belongs_to supplier</text>
+  <text x="1510" y="435" class="model-text">• has_many payments</text>
+  <text x="1510" y="450" class="model-text">• amount_due</text>
+  <text x="1510" y="465" class="model-text">• due_date</text>
+  <text x="1510" y="480" class="model-text">• status enum</text>
+
+  <!-- Relationships in Parts/Inventory -->
+  <line x1="1050" y1="390" x2="1100" y2="390" class="relationship-line" marker-end="url(#arrowhead)"/>
+  <text x="1062" y="385" class="relationship-label">has_many</text>
+
+  <line x1="1250" y1="400" x2="1300" y2="395" class="relationship-line" marker-end="url(#arrowhead)"/>
+  <text x="1262" y="390" class="relationship-label">belongs_to</text>
+
+  <line x1="1450" y1="400" x2="1500" y2="395" class="relationship-line" marker-end="url(#arrowhead)"/>
+  <text x="1462" y="390" class="relationship-label">has_many</text>
+
+  <!-- OPERATIONS & TRANSACTIONS Domain -->
+  <text x="900" y="600" class="domain-label">OPERATIONS &amp; TRANSACTIONS</text>
+
+  <!-- CashierSession -->
+  <rect x="900" y="620" width="150" height="130" class="model-box" rx="4"/>
+  <text x="910" y="645" class="model-title">CashierSession</text>
+  <text x="910" y="665" class="model-text">• belongs_to agency</text>
+  <text x="910" y="680" class="model-text">• belongs_to user</text>
+  <text x="910" y="695" class="model-text">• has_many transactions</text>
+  <text x="910" y="710" class="model-text">• opening_balance</text>
+  <text x="910" y="725" class="model-text">• closing_balance</text>
+  <text x="910" y="740" class="model-text">• status enum</text>
+
+  <!-- POSTransaction -->
+  <rect x="1100" y="620" width="150" height="130" class="model-box" rx="4"/>
+  <text x="1110" y="645" class="model-title">POSTransaction</text>
+  <text x="1110" y="665" class="model-text">• belongs_to cashier_session</text>
+  <text x="1110" y="680" class="model-text">• belongs_to agency</text>
+  <text x="1110" y="695" class="model-text">• transaction_type</text>
+  <text x="1110" y="710" class="model-text">• amount</text>
+  <text x="1110" y="725" class="model-text">• timestamp</text>
+  <text x="1110" y="740" class="model-text">• reconciliation</text>
+
+  <!-- AccountTransaction -->
+  <rect x="1300" y="620" width="150" height="130" class="model-box" rx="4"/>
+  <text x="1310" y="645" class="model-title">AccountTransaction</text>
+  <text x="1310" y="665" class="model-text">• belongs_to debit_account</text>
+  <text x="1310" y="680" class="model-text">• belongs_to credit_account</text>
+  <text x="1310" y="695" class="model-text">• amount</text>
+  <text x="1310" y="710" class="model-text">• description</text>
+  <text x="1310" y="725" class="model-text">• timestamp</text>
+  <text x="1310" y="740" class="model-text">• type: debit/credit</text>
+
+  <!-- LaborLog -->
+  <rect x="1500" y="620" width="150" height="130" class="model-box" rx="4"/>
+  <text x="1510" y="645" class="model-title">LaborLog</text>
+  <text x="1510" y="665" class="model-text">• belongs_to job_task</text>
+  <text x="1510" y="680" class="model-text">• mechanic_id</text>
+  <text x="1510" y="695" class="model-text">• hours_worked</text>
+  <text x="1510" y="710" class="model-text">• hourly_rate</text>
+  <text x="1510" y="725" class="model-text">• date_logged</text>
+  <text x="1510" y="740" class="model-text">• cost calculation</text>
+
+  <!-- Legend -->
+  <text x="50" y="1600" font-size="14" font-weight="bold" fill="#2c3e50">Legend:</text>
+  <line x1="50" y1="1620" x2="100" y2="1620" class="relationship-line" marker-end="url(#arrowhead)"/>
+  <text x="110" y="1625" font-size="12" fill="#34495e">One-to-Many Relationship</text>
+
+  <line x1="50" y1="1650" x2="100" y2="1650" class="relationship-line one-to-many" marker-end="url(#arrowhead)"/>
+  <text x="110" y="1655" font-size="12" fill="#34495e">Optional Relationship</text>
+
+  <line x1="50" y1="1680" x2="100" y2="1680" class="relationship-line many-to-many" marker-end="url(#arrowhead)"/>
+  <text x="110" y="1685" font-size="12" fill="#34495e">Many-to-Many Relationship</text>
+
+  <!-- Statistics -->
+  <text x="800" y="1600" font-size="14" font-weight="bold" fill="#2c3e50">Statistics:</text>
+  <text x="800" y="1625" font-size="12" fill="#34495e">• Total Models: 80+</text>
+  <text x="800" y="1650" font-size="12" fill="#34495e">• Total Associations: 200+</text>
+  <text x="800" y="1675" font-size="12" fill="#34495e">• Key Hub Models: Vehicle, PurchaseOrder, Maintenance, Inspection</text>
+  <text x="800" y="1700" font-size="12" fill="#34495e">• Multi-tenancy: 40+ models use agency_id for organization isolation</text>
+
+  <!-- Cross-Domain Connection Examples -->
+  <line x1="800" y1="300" x2="900" y2="140" class="relationship-line" stroke="#e74c3c" stroke-width="1.5" marker-end="url(#arrowhead)" opacity="0.6"/>
+  <text x="830" y="215" class="relationship-label" fill="#e74c3c">Vehicle →</text>
+  <text x="830" y="235" class="relationship-label" fill="#e74c3c">PurchaseOrder</text>
+
+  <line x1="800" y1="560" x2="900" y2="360" class="relationship-line" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arrowhead)" opacity="0.6"/>
+  <text x="810" y="460" class="relationship-label" fill="#27ae60">Maintenance →</text>
+  <text x="810" y="480" class="relationship-label" fill="#27ae60">Part</text>
+
+</svg>

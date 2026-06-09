@@ -77,8 +77,10 @@ gem 'letter_opener'
 
 # Testing gems
 group :development, :test do
+  gem "byebug", "~> 13.0"
   gem 'rspec-rails'
   gem 'factory_bot_rails'
+  gem 'shoulda-matchers', '~> 5.3'
 end
 
 group :test do
